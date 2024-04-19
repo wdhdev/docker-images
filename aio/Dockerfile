@@ -49,9 +49,6 @@ RUN apt update \
     && rm -rf Python-3.12.3 \
     && rm Python-3.12.*.tgz
 
-# Upgrade Pip
-RUN pip3 install --upgrade pip
-
 # OpenJDK 21 LTS
 RUN apt update \
     && apt install -y libc6-i386 libc6-x32 \
