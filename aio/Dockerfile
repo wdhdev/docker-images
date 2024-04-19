@@ -28,7 +28,7 @@ RUN curl -sL https://deb.nodesource.com/setup_lts.x | bash - \
     && apt -y install build-essential
 
 # Install popular Node.js packages
-RUN npm install -g nodemon pm2 pnpm ts-node tsc typescript yarn
+RUN npm install -g nodemon pm2 pnpm ts-node tsc yarn
 
 # Install Bun
 RUN curl -fsSL https://bun.sh/install | bash
