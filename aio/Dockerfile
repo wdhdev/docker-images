@@ -4,7 +4,7 @@ RUN apt update \
     && apt upgrade -y \
     && apt -y install curl software-properties-common locales git liblzma-dev lzma \
     && adduser container \
-    && apt-get update \
+    && apt update \
     && apt -y install cmake wget
 
 # Generate and set the locale to en_US.UTF-8
@@ -14,8 +14,8 @@ RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
     update-locale LANG=en_US.UTF-8
 
 # Grant sudo permissions to container user for commands
-RUN apt-get update && \
-    apt-get -y install sudo
+RUN apt update && \
+    apt -y install sudo
 
 # Ensure UTF-8
 ENV LANG en_US.UTF-8
@@ -53,7 +53,8 @@ RUN apt update \
     && rm Python-3.12.*.tgz
 
 # Upgrade Pip
-RUN apt -y install python3 python3-pip \
+RUN apt update \
+    && apt -y install python3 python3-pip \
     && pip3 install --upgrade pip
 
 ENV JAVA_HOME=/usr/lib/jvm/jdk-21/
@@ -69,13 +70,13 @@ ENV GOROOT=/usr/local/go
 RUN wget https://packages.microsoft.com/config/debian/12/packages-microsoft-prod.deb -O packages-microsoft-prod.deb \
     && dpkg -i packages-microsoft-prod.deb \
     && rm packages-microsoft-prod.deb \
-    && apt-get update \
-    && apt-get install -y apt-transport-https \
-    && apt-get update \
-    && apt-get install -y aspnetcore-runtime-6.0 dotnet-sdk-6.0
+    && apt update \
+    && apt install -y apt-transport-https \
+    && apt update \
+    && apt install -y aspnetcore-runtime-6.0 dotnet-sdk-6.0
 
 # Puppeteer
-RUN apt-get install -y \
+RUN apt install -y \
     fonts-liberation \
     gconf-service \
     libappindicator1 \
