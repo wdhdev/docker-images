@@ -2,7 +2,7 @@ FROM debian:bookworm-slim
 
 RUN apt update && \
     apt upgrade -y && \
-    apt -y install dnsutils curl iproute2 software-properties-common locales git liblzma-dev lzma cmake wget && \
+    apt -y install dnsutils curl iproute2 software-properties-common locales git liblzma-dev lzma cmake wget zip unzip && \
     adduser container
 
 # Grant sudo permissions to container user for commands
@@ -22,7 +22,10 @@ RUN curl -sL https://deb.nodesource.com/setup_lts.x | bash - \
     && apt -y install build-essential
 
 # Install popular Node.js packages
-RUN npm install -g bun nodemon pm2 pnpm ts-node tsc typescript yarn
+RUN npm install -g nodemon pm2 pnpm ts-node tsc typescript yarn
+
+# Install Bun
+RUN curl -fsSL https://bun.sh/install | bash
 
 # Install NVM
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
