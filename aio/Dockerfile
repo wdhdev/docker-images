@@ -55,7 +55,7 @@ RUN apt update \
 # Upgrade Pip
 RUN apt update \
     && apt -y install python3 python3-pip \
-    && pip3 install --upgrade pip
+    && python3 -m pip install --upgrade pip
 
 ENV JAVA_HOME=/usr/lib/jvm/jdk-21/
 ENV PATH=$PATH:$JAVA_HOME/bin
