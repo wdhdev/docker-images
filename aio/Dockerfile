@@ -34,10 +34,7 @@ RUN curl -sL https://deb.nodesource.com/setup_lts.x | bash - \
     && apt -y install nodejs ffmpeg make build-essential
 
 # Install popular Node.js packages
-RUN npm install -g nodemon pm2 pnpm ts-node tsc yarn
-
-# Install Bun
-RUN curl -fsSL https://bun.sh/install | bash
+RUN npm install -g bun nodemon pm2 pnpm ts-node tsc yarn
 
 # Install NVM
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
