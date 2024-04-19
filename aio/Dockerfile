@@ -2,24 +2,21 @@ FROM debian:bookworm-slim
 
 RUN apt update \
     && apt upgrade -y \
-    && apt -y install curl software-properties-common locales git liblzma-dev lzma \
+    && apt -y install curl software-properties-common locales git \
+    && apt-get -y install liblzma-dev \
+    && apt-get -y install lzma \
     && adduser container \
-    && apt update \
-    && apt -y install cmake wget
-
-# Generate and set the locale to en_US.UTF-8
-RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
-    locale-gen en_US.UTF-8 && \
-    dpkg-reconfigure --frontend=noninteractive locales && \
-    update-locale LANG=en_US.UTF-8
+    && apt-get update \
+    && apt -y install cmake \
+    && apt -y install wget
 
 # Grant sudo permissions to container user for commands
-RUN apt update && \
-    apt -y install sudo
+RUN apt-get update && \
+    apt-get -y install sudo
 
 # Ensure UTF-8
+RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
 # OpenJDK 21 LTS
@@ -31,7 +28,10 @@ RUN apt update \
 
 # Node.js
 RUN curl -sL https://deb.nodesource.com/setup_lts.x | bash - \
-    && apt -y install nodejs ffmpeg make build-essential
+    && apt -y install nodejs \
+    && apt -y install ffmpeg \
+    && apt -y install make \
+    && apt -y install build-essential 
 
 # Install popular Node.js packages
 RUN npm install -g bun nodemon pm2 pnpm ts-node tsc yarn
@@ -42,20 +42,19 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | ba
 # Python 3.12
 RUN apt update \
     && apt -y install zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev libsqlite3-dev libbz2-dev \
-    && wget https://www.python.org/ftp/python/3.12.3/Python-3.12.3.tgz \
+    && wget https://www.python.org/ftp/python/3.12.1/Python-3.12.1.tgz \
     && tar -xf Python-3.12.*.tgz \
-    && cd Python-3.12.3 \
+    && cd Python-3.12.1 \
     && ./configure --enable-optimizations \
     && make -j $(nproc) \
     && make altinstall \
     && cd .. \
-    && rm -rf Python-3.12.3 \
+    && rm -rf Python-3.12.1 \
     && rm Python-3.12.*.tgz
 
 # Upgrade Pip
-RUN apt update \
-    && apt -y install python3 python3-pip \
-    && python3 -m pip install --upgrade pip
+RUN apt -y install python3 python3-pip \
+    && pip3 install --upgrade pip
 
 ENV JAVA_HOME=/usr/lib/jvm/jdk-21/
 ENV PATH=$PATH:$JAVA_HOME/bin
