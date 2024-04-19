@@ -12,6 +12,7 @@ RUN apt-get update && \
 # Ensure UTF-8
 RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
+ENV LC_ALL en_US.UTF-8
 
 # Node.js
 RUN curl -sL https://deb.nodesource.com/setup_lts.x | bash - \
@@ -21,10 +22,7 @@ RUN curl -sL https://deb.nodesource.com/setup_lts.x | bash - \
     && apt -y install build-essential
 
 # Install popular Node.js packages
-RUN npm install -g nodemon pm2 pnpm ts-node tsc typescript yarn
-
-# Install Bun
-RUN curl -fsSL https://bun.sh/install | bash
+RUN npm install -g bun nodemon pm2 pnpm ts-node tsc typescript yarn
 
 # Install NVM
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
