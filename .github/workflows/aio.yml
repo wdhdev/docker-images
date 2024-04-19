@@ -19,7 +19,7 @@ env:
 jobs:
     build-and-deploy:
         name: Build and Deploy
-        runs-on: debian-latest
+        runs-on: debian-bookworm
 
         steps:
             - uses: actions/checkout@v4
