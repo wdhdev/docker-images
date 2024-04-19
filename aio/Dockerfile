@@ -1,4 +1,4 @@
-FROM debian:bookworm-slin
+FROM debian:bookworm-slim
 
 RUN apt update && \
     apt upgrade -y && \
