@@ -1,9 +1,11 @@
 FROM debian:bookworm-slim
 
-RUN apt update && \
-    apt upgrade -y && \
-    apt -y install dnsutils curl iproute2 software-properties-common locales git liblzma-dev lzma cmake wget zip unzip && \
-    adduser container
+RUN apt update \
+    && apt upgrade -y \
+    && apt -y install curl software-properties-common locales git liblzma-dev lzma \
+    && adduser container \
+    && apt-get update \
+    && apt -y install cmake wget
 
 # Generate and set the locale to en_US.UTF-8
 RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
@@ -29,10 +31,7 @@ RUN apt update \
 
 # Node.js
 RUN curl -sL https://deb.nodesource.com/setup_lts.x | bash - \
-    && apt -y install nodejs \
-    && apt -y install ffmpeg \
-    && apt -y install make \
-    && apt -y install build-essential
+    && apt -y install nodejs ffmpeg make build-essential
 
 # Install popular Node.js packages
 RUN npm install -g nodemon pm2 pnpm ts-node tsc yarn
