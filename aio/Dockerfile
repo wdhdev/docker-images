@@ -29,10 +29,10 @@ RUN curl -sL https://deb.nodesource.com/setup_lts.x | bash - \
     && apt -y install nodejs ffmpeg make build-essential
 
 # Install Bun
-RUN curl "https://github.com/oven-sh/bun/releases/latest/download/bun-linux-x64.zip" -fsSLO --compressed \
-    && unzip "bun-linux-x64.zip" \
-    && mv "bun-linux-x64/bun" /usr/local/bin/bun \
-    && rm -f "bun-linux-x64.zip" \
+RUN curl "https://github.com/oven-sh/bun/releases/latest/download/bun-linux-x64-baseline.zip" -fsSLO --compressed \
+    && unzip "bun-linux-x64-baseline.zip" \
+    && mv "bun-linux-x64-baseline/bun" /usr/local/bin/bun \
+    && rm -f "bun-linux-x64-baseline.zip" \
     && chmod +x /usr/local/bin/bun
 
 # Install NVM
