@@ -47,9 +47,7 @@ RUN apt update \
     && rm Python-3.12.*.tgz
 
 # Upgrade Pip
-RUN apt update \
-    && apt -y install python3 python3-pip \
-    && python3 -m pip install --upgrade pip
+RUN pip install --upgrade pip
 
 # OpenJDK 21 LTS
 RUN apt update \
