@@ -20,19 +20,15 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
-# OpenJDK 21 LTS
-RUN apt update \
-    && apt install -y libc6-i386 libc6-x32 \
-    && wget https://download.oracle.com/java/21/latest/jdk-21_linux-x64_bin.deb -O jdk-21_linux-x64_bin.deb \
-    && apt install -y ./jdk-21_linux-x64_bin.deb \
-    && rm jdk-21_linux-x64_bin.deb
-
 # Node.js
 RUN curl -sL https://deb.nodesource.com/setup_lts.x | bash - \
     && apt -y install nodejs ffmpeg make build-essential
 
 # Install popular Node.js packages
-RUN npm install -g bun nodemon pm2 pnpm ts-node tsc yarn
+RUN npm install -g nodemon pm2 pnpm ts-node tsc yarn
+
+# Install Bun
+RUN curl -fsSL https://bun.sh/install | bash
 
 # Install NVM
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
@@ -54,6 +50,13 @@ RUN apt update \
 RUN apt update \
     && apt -y install python3 python3-pip \
     && python3 -m pip install --upgrade pip
+
+# OpenJDK 21 LTS
+RUN apt update \
+    && apt install -y libc6-i386 libc6-x32 \
+    && wget https://download.oracle.com/java/21/latest/jdk-21_linux-x64_bin.deb -O jdk-21_linux-x64_bin.deb \
+    && apt install -y ./jdk-21_linux-x64_bin.deb \
+    && rm jdk-21_linux-x64_bin.deb
 
 ENV JAVA_HOME=/usr/lib/jvm/jdk-21/
 ENV PATH=$PATH:$JAVA_HOME/bin
