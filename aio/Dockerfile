@@ -2,10 +2,8 @@ FROM debian:bullseye-slim
 
 RUN apt update \
     && apt upgrade -y \
-    && apt -y install curl software-properties-common locales git liblzma-dev lzma \
-    && adduser container \
-    && apt update \
-    && apt -y install cmake wget
+    && apt -y install curl software-properties-common locales git liblzma-dev lzma cmake wget \
+    && adduser container
 
 # Generate and set the locale to en_US.UTF-8
 RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
@@ -109,6 +107,10 @@ RUN apt install -y \
     libxss1 \
     libxtst6 \
     xdg-utils
+
+# Install popular APT packages
+RUN apt update \
+    && apt -y install neofetch speedtest-cli unzip zip
 
 USER container
 ENV USER container
