@@ -36,7 +36,7 @@ RUN curl "https://github.com/oven-sh/bun/releases/latest/download/bun-linux-x64.
     && chmod +x /usr/local/bin/bun
 
 # Install NVM
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/releases/latest/download/install.sh | bash
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
 
 # Install popular Node.js packages
 RUN npm install -g nodemon pm2 pnpm ts-node tsc yarn
