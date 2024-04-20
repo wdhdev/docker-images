@@ -27,9 +27,6 @@ RUN curl -sL https://deb.nodesource.com/setup_lts.x | bash - \
 # Install popular Node.js packages
 RUN npm install -g nodemon pm2 pnpm ts-node tsc yarn
 
-# Install Bun
-RUN curl -fsSL https://bun.sh/install | bash
-
 # Install NVM
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
 
