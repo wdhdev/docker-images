@@ -28,9 +28,6 @@ RUN apt update \
 RUN curl -sL https://deb.nodesource.com/setup_lts.x | bash - \
     && apt -y install nodejs ffmpeg make build-essential
 
-# Install popular Node.js packages
-RUN npm install -g nodemon pm2 pnpm ts-node tsc yarn
-
 # Install Bun
 RUN curl "https://github.com/oven-sh/bun/releases/latest/download/bun-linux-x64.zip" -fsSLO --compressed \
     && unzip "bun-linux-x64.zip" \
@@ -39,7 +36,10 @@ RUN curl "https://github.com/oven-sh/bun/releases/latest/download/bun-linux-x64.
     && chmod +x /usr/local/bin/bun
 
 # Install NVM
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/releases/latest/download/install.sh | bash
+
+# Install popular Node.js packages
+RUN npm install -g nodemon pm2 pnpm ts-node tsc yarn
 
 # Python 3.11 / 3.12
 RUN apt update \
