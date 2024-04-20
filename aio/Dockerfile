@@ -32,7 +32,7 @@ RUN curl -sL https://deb.nodesource.com/setup_lts.x | bash - \
 RUN npm install -g nodemon pm2 pnpm ts-node tsc yarn
 
 # Install Bun
-RUN curl "https://github.com/oven-sh/bun/releases/latest/bun-linux-x64.zip" \
+RUN curl "https://github.com/oven-sh/bun/releases/latest/bun-linux-x64.zip" -fsSLO --compressed --retry 5 \
     unzip "bun-linux-x64.zip" \
     && mv "bun-linux-x64/bun" /usr/local/bin/bun \
     && rm -f "bun-linux-x64.zip" \
