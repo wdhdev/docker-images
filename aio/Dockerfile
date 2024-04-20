@@ -20,7 +20,11 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
-# Node.js
+# Install popular APT packages
+RUN apt update \
+    && apt -y install neofetch speedtest-cli unzip zip
+
+# Node.js Latest LTS
 RUN curl -sL https://deb.nodesource.com/setup_lts.x | bash - \
     && apt -y install nodejs ffmpeg make build-essential
 
@@ -30,9 +34,18 @@ RUN npm install -g nodemon pm2 pnpm ts-node tsc yarn
 # Install NVM
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
 
-# Python 3.12
+# Python 3.11 / 3.12
 RUN apt update \
     && apt -y install zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev libsqlite3-dev libbz2-dev \
+    && wget https://www.python.org/ftp/python/3.11.9/Python-3.11.9.tgz \
+    && tar -xf Python-3.11.*.tgz \
+    && cd Python-3.11.9 \
+    && ./configure --enable-optimizations \
+    && make -j $(nproc) \
+    && make altinstall \
+    && cd .. \
+    && rm -rf Python-3.11.9 \
+    && rm Python-3.11.*.tgz \
     && wget https://www.python.org/ftp/python/3.12.3/Python-3.12.3.tgz \
     && tar -xf Python-3.12.*.tgz \
     && cd Python-3.12.3 \
@@ -43,8 +56,9 @@ RUN apt update \
     && rm -rf Python-3.12.3 \
     && rm Python-3.12.*.tgz
 
-# Upgrade Pip
-RUN pip install --upgrade pip
+# Upgrade Pip 3.11 / 3.12
+RUN pip3.11 install --upgrade pip \
+    && pip3.12 install --upgrade pip
 
 # OpenJDK 21 LTS
 RUN apt update \
@@ -105,10 +119,6 @@ RUN apt install -y \
     libxss1 \
     libxtst6 \
     xdg-utils
-
-# Install popular APT packages
-RUN apt update \
-    && apt -y install neofetch speedtest-cli unzip zip
 
 USER container
 ENV USER container
