@@ -5,15 +5,15 @@ RUN apt update \
     && apt -y install curl software-properties-common locales git liblzma-dev lzma cmake wget zip unzip \
     && adduser container
 
+# Grant sudo permissions to container user for commands
+RUN apt update && \
+    apt -y install sudo
+
 # Generate and set the locale to en_US.UTF-8
 RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
     locale-gen en_US.UTF-8 && \
     dpkg-reconfigure --frontend=noninteractive locales && \
     update-locale LANG=en_US.UTF-8
-
-# Grant sudo permissions to container user for commands
-RUN apt update && \
-    apt -y install sudo
 
 # Ensure UTF-8
 ENV LANG en_US.UTF-8
@@ -27,6 +27,9 @@ RUN apt update \
 # Node.js Latest LTS
 RUN curl -sL https://deb.nodesource.com/setup_lts.x | bash - \
     && apt -y install nodejs ffmpeg make build-essential
+
+# Update npm
+RUN npm install -g npm@latest
 
 # Install Bun
 RUN curl "https://github.com/oven-sh/bun/releases/latest/download/bun-linux-x64-baseline.zip" -fsSLO --compressed \
