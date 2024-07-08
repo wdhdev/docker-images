@@ -130,6 +130,11 @@ RUN apt install -y \
     libxtst6 \
     xdg-utils
 
+# Install Fastfetch
+RUN wget https://github.com/fastfetch-cli/fastfetch/releases/latest/download/fastfetch-linux-amd64.deb -O /tmp/fastfetch.deb && \
+    apt -y install -f /tmp/fastfetch.deb && \
+    rm -f /tmp/fastfetch.deb
+
 # Install jq
 ENV JQ_VERSION='1.5'
 
@@ -143,11 +148,6 @@ RUN wget --no-check-certificate https://raw.githubusercontent.com/jqlang/jq/mast
     rm -f /tmp/jq-release.key && \
     rm -f /tmp/jq-linux64.asc && \
     rm -f /tmp/jq-linux64
-
-# Install Fastfetch
-RUN wget https://github.com/fastfetch-cli/fastfetch/releases/latest/download/fastfetch-linux-amd64.deb -O /tmp/fastfetch.deb && \
-    apt -y install -f /tmp/fastfetch.deb && \
-    rm -f /tmp/fastfetch.deb
 
 USER container
 ENV USER container
