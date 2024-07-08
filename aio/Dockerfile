@@ -22,7 +22,7 @@ ENV LC_ALL en_US.UTF-8
 
 # Install popular APT packages
 RUN apt update \
-    && apt -y install dnsutils neofetch speedtest-cli
+    && apt -y install dnsutils neofetch speedtest-cli jq
 
 # Node.js Latest LTS
 RUN curl -sL https://deb.nodesource.com/setup_lts.x | bash - \
@@ -134,20 +134,6 @@ RUN apt install -y \
 RUN wget https://github.com/fastfetch-cli/fastfetch/releases/latest/download/fastfetch-linux-amd64.deb -O /tmp/fastfetch.deb && \
     apt -y install -f /tmp/fastfetch.deb && \
     rm -f /tmp/fastfetch.deb
-
-# Install jq
-ENV JQ_VERSION='1.5'
-
-RUN wget --no-check-certificate https://raw.githubusercontent.com/jqlang/jq/master/sig/jq-release.key -O /tmp/jq-release.key && \
-    wget --no-check-certificate https://raw.githubusercontent.com/jqlang/jq/master/sig/v${JQ_VERSION}/jq-linux64.asc -O /tmp/jq-linux64.asc && \
-    wget --no-check-certificate https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux64 -O /tmp/jq-linux64 && \
-    gpg --import /tmp/jq-release.key && \
-    gpg --verify /tmp/jq-linux64.asc /tmp/jq-linux64 && \
-    cp /tmp/jq-linux64 /usr/bin/jq && \
-    chmod +x /usr/bin/jq && \
-    rm -f /tmp/jq-release.key && \
-    rm -f /tmp/jq-linux64.asc && \
-    rm -f /tmp/jq-linux64
 
 USER container
 ENV USER container
