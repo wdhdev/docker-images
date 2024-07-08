@@ -130,7 +130,7 @@ RUN apt install -y \
     libxtst6 \
     xdg-utils
 
-# install jq
+# Install jq
 ENV JQ_VERSION='1.5'
 
 RUN wget --no-check-certificate https://raw.githubusercontent.com/jqlang/jq/master/sig/jq-release.key -O /tmp/jq-release.key && \
