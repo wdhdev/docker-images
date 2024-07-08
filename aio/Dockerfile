@@ -22,7 +22,7 @@ ENV LC_ALL en_US.UTF-8
 
 # Install popular APT packages
 RUN apt update \
-    && apt -y install dnsutils neofetch speedtest-cli
+    && apt -y install dnsutils jq neofetch speedtest-cli
 
 # Node.js Latest LTS
 RUN curl -sL https://deb.nodesource.com/setup_lts.x | bash - \
@@ -129,6 +129,11 @@ RUN apt install -y \
     libxss1 \
     libxtst6 \
     xdg-utils
+
+# Install Fastfetch
+RUN wget https://github.com/fastfetch-cli/fastfetch/releases/latest/download/fastfetch-linux-amd64.deb -O /tmp/fastfetch.deb && \
+    apt -y install -f /tmp/fastfetch.deb && \
+    rm -f /tmp/fastfetch.deb
 
 USER container
 ENV USER container
