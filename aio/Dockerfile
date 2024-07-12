@@ -2,12 +2,8 @@ FROM debian:bullseye-slim
 
 RUN apt update \
     && apt upgrade -y \
-    && apt -y install curl software-properties-common locales git liblzma-dev lzma cmake wget zip unzip \
-    && adduser container
-
-# Grant sudo permissions to container user for commands
-RUN apt update && \
-    apt -y install sudo
+    && apt -y install cmake curl dnsutils git jq liblzma-dev locales lzma neofetch software-properties-common speedtest-cli sudo unzip wget zip \
+    && useradd -m --home /home/container --shell /bin/bash -u 999 container
 
 # Generate and set the locale to en_US.UTF-8
 RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
@@ -19,10 +15,6 @@ RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
-
-# Install popular APT packages
-RUN apt update \
-    && apt -y install dnsutils jq neofetch speedtest-cli
 
 # Node.js Latest LTS
 RUN curl -sL https://deb.nodesource.com/setup_lts.x | bash - \
@@ -46,7 +38,7 @@ RUN npm install -g nodemon pm2 pnpm ts-node tsc yarn
 
 # Python 3.11 / 3.12
 RUN apt update \
-    && apt -y install zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev libsqlite3-dev libbz2-dev \
+    && apt -y install libbz2-dev libffi-dev libgdbm-dev libncurses5-dev libnss3-dev libreadline-dev libsqlite3-dev libssl-dev zlib1g-dev \
     && wget https://www.python.org/ftp/python/3.11.9/Python-3.11.9.tgz \
     && tar -xf Python-3.11.*.tgz \
     && cd Python-3.11.9 \
@@ -82,7 +74,8 @@ ENV PATH=$PATH:$JAVA_HOME/bin
 
 # Golang
 RUN curl -OL https://golang.org/dl/go1.22.2.linux-amd64.tar.gz \
-    && tar -C /usr/local -xvf go1.22.2.linux-amd64.tar.gz   
+    && tar -C /usr/local -xvf go1.22.2.linux-amd64.tar.gz
+
 ENV PATH=$PATH:/usr/local/go/bin
 ENV GOROOT=/usr/local/go
 
@@ -142,5 +135,4 @@ ENV HOME /home/container
 WORKDIR /home/container
 
 COPY ./entrypoint.sh /entrypoint.sh
-
 CMD ["/bin/bash", "/entrypoint.sh"]
