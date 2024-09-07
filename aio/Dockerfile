@@ -2,7 +2,7 @@ FROM debian:bullseye-slim
 
 RUN apt update \
     && apt upgrade -y \
-    && apt -y install cmake curl dnsutils git jq liblzma-dev locales lzma neofetch software-properties-common speedtest-cli sudo unzip wget zip \
+    && apt -y install cmake curl dnsutils git iputils-ping jq liblzma-dev locales lzma neofetch software-properties-common speedtest-cli sudo unzip wget zip \
     && useradd -m --home /home/container --shell /bin/bash -u 999 container
 
 # Generate and set the locale to en_US.UTF-8
