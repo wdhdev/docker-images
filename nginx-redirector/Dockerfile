@@ -1,6 +1,6 @@
-FROM nginx:alpine
+FROM nginx:latest
 
-RUN apt-get update && apt-get install -y gettext-base
+RUN apt update && apt install -y gettext-base
 
 RUN rm /etc/nginx/conf.d/default.conf
 
