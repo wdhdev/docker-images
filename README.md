@@ -1,5 +1,5 @@
-# William's Yolks
-Docker images made for my [Pterodactyl eggs](https://github.com/wdhdev/eggs).
+# Docker Images
+Various Docker Images created by me.
 
 ## 📷 Images
-- **[william/aio](https://hub.docker.com/r/william/aio)**: An all-in-one egg with support for multiple programming languages.
+- **[william/aio](https://hub.docker.com/r/william/aio)**: An all-in-one image with support for multiple programming languages, built for use with Pterodactyl.
