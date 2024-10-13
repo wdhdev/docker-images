@@ -1,2 +1,2 @@
 # [william/aio](https://hub.docker.com/r/william/aio)
-An all-in-one egg with support for multiple programming languages.
+An all-in-one image with support for multiple programming languages, built for use with Pterodactyl.
