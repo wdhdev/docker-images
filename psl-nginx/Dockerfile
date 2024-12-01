@@ -7,8 +7,8 @@ WORKDIR /usr/share/nginx/html
 # Remove default files
 RUN rm ./*
 
-# Pull the default configuration
-RUN curl -o /etc/nginx/conf.d/default.conf https://raw.githubusercontent.com/wdhdev/docker-images/refs/heads/main/psl-nginx/default.conf
+# Pull the NGINX configuration
+RUN curl -o /etc/nginx/nginx.conf https://raw.githubusercontent.com/wdhdev/docker-images/refs/heads/main/psl-nginx/nginx.conf
 
 # Deploy https://github.com/wdhdev/psl-json
 RUN curl -o public_suffix_list.json https://raw.githubusercontent.com/wdhdev/psl-json/refs/heads/main/list/public_suffix_list.json
